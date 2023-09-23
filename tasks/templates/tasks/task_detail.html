@@ -1,0 +1,41 @@
+{% extends 'tasks/base.html' %}
+{% block content %}
+    <main class="py-4">
+        <div class="container">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3>{{ task.title }}</h3>
+                        {% if task.priority == 1 %}
+                            <small class="text-muted">Priority: <b>Low</b></small>
+                        {% elif task.priority == 2 %}
+                            <small class="text-muted">Priority: <b>Medium</b></small>
+                        {% elif task.priority == 3 %}
+                            <small class="text-muted">Priority: <b>High</b></small>
+                        {% elif task.priority == 4 %}
+                            <small class="text-muted">Priority: <b>Urgent</b></small>
+                        {% endif %}
+                    </div>
+                    <hr>
+                    <p>{{ task.description }}</p>
+                    {% if task.due_date %}
+                        <p>Due DT: {{ task.due_date}}</p>
+                    {% endif %}
+                    <p>Created DT: {{ task.created_date}}</p>
+                {% if task.completed %}
+                    <p>status: <b>Done</b></p>
+                    <p>Completed DT: {{ task.completed_date}}</p>
+                {% else %}
+                    <p>status: <b>Not Done</b></p>
+                {% endif %}
+                            <hr>
+ <div>
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1"
+                       href="{% url 'task-update' task.pk %}">Update</a>
+                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'task-delete' task.pk %}">Delete</a>
+                </div>
+                </li>
+            </ul>
+        </div>
+    </main>
+{% endblock %}
